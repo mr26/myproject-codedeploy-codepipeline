@@ -28,7 +28,7 @@ Resources:
                 Owner: mr26
                 Repo: myproject-aws
                 Branch: master
-                OAuthToken: e5c1469c8db696912d883701d42f3a9924d59d50
+                OAuthToken: XXXXXX
               OutputArtifacts:
                 - 
                   Name: SourceOutputArtifact
