@@ -1,0 +1,55 @@
+
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  myprojectbucketaws:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: myprojectbucketaws
+  myprojectpipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      Name: myproject-pipeline
+      RoleArn: arn:aws:iam::313060132730:role/service-role/AWSCodePipelineServiceRole-us-east-1-myproject-aws
+      ArtifactStore:
+        Type: S3
+        Location: !Ref myprojectbucketaws
+      Stages:
+        - 
+          Name: Source
+          Actions:
+            -
+              Name: SourceAction
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Version: 1
+                Provider: GitHub
+              Configuration: 
+                Owner: mr26
+                Repo: myproject-aws
+                Branch: master
+                OAuthToken: e5c1469c8db696912d883701d42f3a9924d59d50
+              OutputArtifacts:
+                - 
+                  Name: SourceOutputArtifact
+ 
+        -
+          Name: Deploy
+          Actions:
+            - 
+              Name: Deploy
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Version: 1
+                Provider: CodeDeploy
+              Configuration: 
+                ApplicationName: myproject-aws1
+                DeploymentGroupName: dep-grp2
+              InputArtifacts:
+                - 
+                  Name: SourceOutputArtifact
+
+
+          
+

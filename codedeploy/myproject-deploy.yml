@@ -1,0 +1,27 @@
+
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  asgmyprojectaws1:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: asg-myproject-aws1
+      LaunchTemplate: 
+        LaunchTemplateId: lt-0e6716ba9b9065319
+        Version: 1
+      TargetGroupARNs: 
+        - arn:aws:elasticloadbalancing:us-east-1:313060132730:targetgroup/cd-tg/e1a7e5c925a4350b
+      MinSize: 2
+      MaxSize: 2
+      VPCZoneIdentifier:
+        - subnet-23b9f369
+        - subnet-9860e1b6
+        - subnet-d47dc7b3
+        - subnet-5e76f102
+        - subnet-5099e55f
+        - subnet-f75799c9
+  myprojectapplication:
+    Type: AWS::CodeDeploy::Application
+    Properties:
+      ApplicationName: myproject-aws1
+      ComputePlatform: Server
+      
